@@ -1,5 +1,6 @@
 import { bookService } from '../services/book.service.js';
 import { utilService } from '../services/util.service.js';
+import { LongTxt } from './LongTxt.jsx';
 
 const { useState, useEffect } = React;
 
@@ -46,7 +47,8 @@ export function BookDetails({ bookId, onBack }) {
 				Book Price:{' '}
 				<span className={colorPrice()}> {book.listPrice['amount']}</span>
 			</h1>
-			<p>{description}</p>
+
+			<LongTxt txt={description} length={15} />
 			<img
 				src={`../assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`}
 				alt="Book Image"
