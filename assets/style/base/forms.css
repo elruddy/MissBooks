@@ -1,18 +1,33 @@
 button {
-    cursor: pointer;
-    background-color: var(--clr2bg);
-    margin: 0.5em;
-    border: 0;
-    padding: 0.5em 0.8em;
-    border-radius: 4px;   
+	cursor: pointer;
+	background-color: var(--clr2bg);
+	margin: 0.5em;
+	border: 0;
+	padding: 0.5em 0.8em;
+	border-radius: 4px;
 }
 
 button:hover {
-    background-color: var(--clr2);
-    color: white;
-    transition: .3s;
+	background-color: var(--clr2);
+	color: white;
+	transition: 0.3s;
 }
 input:focus {
-    background-color: var(--clr1bg);
-    transition: background-color 1s;
+	background-color: var(--clr1bg);
+	transition: background-color 1s;
+}
+
+.book-edit form {
+	text-align: center;
+	width: 30vw;
+	box-sizing: border-box;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
+
+.book-filter form {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
 }

@@ -1,6 +1,7 @@
 import { bookService } from '../services/book.service.js';
 import { utilService } from '../services/util.service.js';
 import { LongTxt } from '../cmps/LongTxt.jsx';
+import { AddReview } from '../cmps/AddReview.jsx';
 
 const { useState, useEffect } = React;
 const { useParams, useNavigate, Link } = ReactRouterDOM;
@@ -11,6 +12,9 @@ export function BookDetails() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
+		// to ensure we see loading
+		setBook(null);
+
 		loadBook(params.bookId);
 	}, [params.bookId]);
 
@@ -42,9 +46,29 @@ export function BookDetails() {
 		navigate('/book');
 	}
 
+	function onReviewSubmit(review) {
+		if (!book.reviews) book.reviews = [];
+
+		book.reviews.push(review);
+		bookService
+			.save(book)
+			.then((book) => setBook({ ...book }))
+			.catch((err) => console.log('failed to save review'));
+	}
+
+	function removeReview(id) {
+		const idToRemove = book.reviews.findIndex((review) => review.id === id);
+		book.reviews.splice(idToRemove, 1);
+		bookService
+			.save(book)
+			.then((book) => setBook({ ...book }))
+			.catch((err) => console.log('failed to remove review'));
+	}
+
 	if (!book) return <div>Loading Details...</div>;
 
-	const { title, description, thumbnail, listPrice } = book;
+	const { title, description } = book;
+	const hasReviews = book.reviews && !!book.reviews.length;
 	return (
 		<section className="book-details container">
 			<h1>Book Title: {title}</h1>
@@ -62,6 +86,33 @@ export function BookDetails() {
 			/>
 			{book.listPrice.isOnSale && <span>On Sale</span>}
 			<button onClick={onBack}>Back</button>
+
+			<AddReview onReviewSubmit={onReviewSubmit} />
+
+			{hasReviews && (
+				<section>
+					<h2>Book Reviews</h2>
+					<ul className="book-reviews container">
+						{book.reviews.map((review) => (
+							<li key={review.id}>
+								<div>{review.fullname}</div>
+								<div>{review.rating}</div>
+								<div>{review.readAt}</div>
+								<button onClick={() => removeReview(review.id)}>X</button>
+							</li>
+						))}
+					</ul>
+				</section>
+			)}
+
+			<section className="page-btns">
+				<button>
+					<Link to={`/book/${book.prevBookId}`}>Prev</Link>
+				</button>
+				<button>
+					<Link to={`/book/${book.nextBookId}`}>Next</Link>
+				</button>
+			</section>
 		</section>
 	);
 }

@@ -2,9 +2,9 @@ import { BookFilter } from '../cmps/BookFilter.jsx';
 import { BookList } from '../cmps/BookList.jsx';
 import { bookService } from '../services/book.service.js';
 // import { animateCSS } from "../services/util.service.js"
-import { BookDetails } from './BookDetails.jsx';
+const { Link } = ReactRouterDOM;
 
-const { useState, useEffect, Fragment } = React;
+const { useState, useEffect } = React;
 
 export function BookIndex() {
 	const [books, setBooks] = useState(null);
@@ -49,6 +49,11 @@ export function BookIndex() {
 	return (
 		<section className="books-index">
 			<BookFilter onSetFilterBy={onSetFilterBy} filterBy={filterBy} />
+			<section className="container">
+				<button className="edit-link">
+					<Link to="/book/add">Add Book</Link>
+				</button>
+			</section>
 			<BookList
 				books={books}
 				// onRemoveBook={onRemoveBook}

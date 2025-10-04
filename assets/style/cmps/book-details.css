@@ -5,3 +5,16 @@
 .green {
 	color: rgb(8, 219, 8);
 }
+
+.book-details,
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.book-details img {
+	width: 15%;
+}
+button:not(.page-btns) {
+	width: 200px;
+}
