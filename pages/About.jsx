@@ -1,3 +1,4 @@
+const { Link, Outlet } = ReactRouterDOM;
 export function About() {
 	return (
 		<section className="about container">
@@ -8,6 +9,11 @@ export function About() {
 				Nobis nam dolorem rerum illo facilis nemo sit voluptatibus laboriosam
 				necessitatibus!
 			</p>
+			<nav>
+				<Link to="/about/team">Team</Link>
+				<Link to="/about/goal">Goal</Link>
+			</nav>
+			<Outlet />
 		</section>
 	);
 }
