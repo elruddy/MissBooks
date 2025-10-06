@@ -1,0 +1,24 @@
+.book-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	justify-content: center;
+	gap: 10px;
+}
+
+.book-list li {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: start;
+
+	border-radius: 15px;
+	gap: 5px;
+	padding: 10px;
+	background: pink;
+}
+
+.book-list li button {
+	width: 70px;
+}

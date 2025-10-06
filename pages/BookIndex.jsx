@@ -1,6 +1,8 @@
 import { BookFilter } from '../cmps/BookFilter.jsx';
 import { BookList } from '../cmps/BookList.jsx';
 import { bookService } from '../services/book.service.js';
+import { showSuccessMsg } from '../services/event-bus.service.js';
+
 // import { animateCSS } from "../services/util.service.js"
 const { Link } = ReactRouterDOM;
 
@@ -21,21 +23,17 @@ export function BookIndex() {
 			.catch((err) => console.log('err:', err));
 	}
 
-	// function onRemoveBook(bookId, { target }) {
-	//     const elLi = target.closest('li')
-
-	//     bookService.remove(bookId)
-	//         // .then(() => animateCSS(elLi, 'fadeOut'))
-	//         .then(() => {
-	//             setBooks(books => books.filter(book => book.id !== bookId))
-	//         })
-	//         .catch(err => console.log('err:', err))
-	// }
-
-	/*
-        filterBy = {txt:'asd', minSpeed:123, labels:[...]}
-        newFilterBy = {txt:'asd', minSpeed:123}
-    */
+	function onRemoveBook(bookId) {
+		bookService
+			.remove(bookId)
+			.then(() => {
+				setBooks((books) => books.filter((book) => book.id !== bookId));
+				showSuccessMsg('Book has been successfully removed!');
+			})
+			.catch(() => {
+				showErrorMsg(`couldn't remove book`);
+			});
+	}
 	function onSetFilterBy(newFilterBy) {
 		const prevFilter = bookService.getFilterBy();
 		newFilterBy = { ...prevFilter, ...newFilterBy };
@@ -54,10 +52,7 @@ export function BookIndex() {
 					<Link to="/book/add">Add Book</Link>
 				</button>
 			</section>
-			<BookList
-				books={books}
-				// onRemoveBook={onRemoveBook}
-			/>
+			<BookList books={books} onRemoveBook={onRemoveBook} />
 		</section>
 	);
 }

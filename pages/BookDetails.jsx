@@ -80,10 +80,7 @@ export function BookDetails() {
 			</h1>
 
 			<LongTxt txt={description} length={25} />
-			<img
-				src={`../assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`}
-				alt="Book Image"
-			/>
+			<img src={book.thumbnail} alt="Book Image" />
 			{book.listPrice.isOnSale && <span>On Sale</span>}
 			<button onClick={onBack}>Back</button>
 

@@ -30,6 +30,7 @@ function query() {
 			);
 		}
 
+		// here is osm bug work only on firt load that it creates 20 books then is two
 		if (!books || books.length === 0) {
 			books = _createBooks();
 		}
@@ -96,17 +97,6 @@ function getNextbookId(bookId) {
 	});
 }
 
-// function _createbooks() {
-
-//     books = [];
-//     books.push(_createbook('audu', 300));
-//     books.push(_createbook('fiak', 120));
-//     books.push(_createbook('subali', 100));
-//     books.push(_createbook('mitsu', 150));
-//     utilService.saveToStorage(BOOK_KEY, books);
-//   }
-// }
-
 // function _createbook(title, listPrice = 80) {
 //   const book = getEmptybook(title, listPrice);
 //   book.id = utilService.makeId();
@@ -128,7 +118,7 @@ function _createBooks() {
 			description: utilService.makeLorem(20),
 			pageCount: utilService.getRandomIntInclusive(20, 600),
 			categories: [ctgs[utilService.getRandomIntInclusive(0, ctgs.length - 1)]],
-			thumbnail: `http://coding-academy.org/books-photos/${i + 1}.jpg`,
+			thumbnail: `/assets/img/${i + 1}.jpg`,
 			language: 'en',
 			listPrice: {
 				amount: utilService.getRandomIntInclusive(80, 500),

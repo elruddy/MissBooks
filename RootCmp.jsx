@@ -3,6 +3,7 @@ import { About } from './pages/About.jsx';
 import { BookIndex } from './pages/BookIndex.jsx';
 import { BookDetails } from './pages/BookDetails.jsx';
 import { BookEdit } from './pages/BookEdit.jsx';
+import { UserMsg } from './cmps/UserMsg.jsx';
 import { AboutGoal } from './cmps/AboutGoal.jsx';
 import { AboutTeam } from './cmps/AboutTeam.jsx';
 import { AppHeader } from './cmps/AppHeader.jsx';
@@ -31,7 +32,7 @@ export function RootCmp() {
 					</Routes>
 				</main>
 
-				{/* <UserMsg /> */}
+				<UserMsg />
 			</section>
 		</Router>
 	);
