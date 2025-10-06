@@ -6,15 +6,16 @@
 	color: rgb(8, 219, 8);
 }
 
-.book-details,
-.container {
-	display: flex;
-	flex-direction: column;
-}
-
 .book-details img {
 	width: 15%;
 }
-button:not(.page-btns) {
+button:not(.page-btn) {
 	width: 200px;
+}
+
+.long-txt {
+	width: 40vw;
+	max-width: 600px;
+	margin: 0;
+	text-align: justify;
 }

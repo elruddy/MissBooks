@@ -70,7 +70,7 @@ export function BookDetails() {
 	const { title, description } = book;
 	const hasReviews = book.reviews && !!book.reviews.length;
 	return (
-		<section className="book-details container">
+		<section className="book-details container flex flex-column align-center ">
 			<h1>Book Title: {title}</h1>
 			<span>{getBookAge()}</span>
 			<h4>{bookReadingLevel()}</h4>
@@ -79,7 +79,7 @@ export function BookDetails() {
 				<span className={colorPrice()}> {book.listPrice['amount']}</span>
 			</h1>
 
-			<LongTxt txt={description} length={15} />
+			<LongTxt txt={description} length={25} />
 			<img
 				src={`../assets/img/${utilService.getRandomIntInclusive(1, 20)}.jpg`}
 				alt="Book Image"
@@ -92,11 +92,11 @@ export function BookDetails() {
 			{hasReviews && (
 				<section>
 					<h2>Book Reviews</h2>
-					<ul className="book-reviews container">
+					<ul className="book-reviews container flex">
 						{book.reviews.map((review) => (
 							<li key={review.id}>
 								<div>{review.fullname}</div>
-								<div>{review.rating}</div>
+								<p>{review.rating}</p>
 								<div>{review.readAt}</div>
 								<button onClick={() => removeReview(review.id)}>X</button>
 							</li>
@@ -106,10 +106,10 @@ export function BookDetails() {
 			)}
 
 			<section className="page-btns">
-				<button>
+				<button className="page-btn">
 					<Link to={`/book/${book.prevBookId}`}>Prev</Link>
 				</button>
-				<button>
+				<button className="page-btn">
 					<Link to={`/book/${book.nextBookId}`}>Next</Link>
 				</button>
 			</section>

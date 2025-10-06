@@ -1,0 +1,20 @@
+.book-reviews {
+	list-style: none;
+	width: 50vw;
+	flex-wrap: wrap;
+	gap: 20px;
+}
+
+.book-reviews li {
+	position: relative;
+	width: 300px;
+	border: 1px solid;
+}
+
+.book-reviews button {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	width: 25px;
+	padding: 5px;
+}

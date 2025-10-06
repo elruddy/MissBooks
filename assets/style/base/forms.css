@@ -26,6 +26,16 @@ input:focus {
 	gap: 20px;
 }
 
+.add-book-review form {
+	display: flex;
+	align-items: flex-start;
+	gap: 20px;
+}
+
+.add-book-review form button {
+	margin: 0;
+}
+
 .book-filter form {
 	display: flex;
 	flex-direction: row;

@@ -60,7 +60,7 @@ export function AddReview({ onReviewSubmit }) {
 				/>
 
 				<label className="bold-txt" htmlFor="readAt">
-					readAt:{' '}
+					read At:{' '}
 				</label>
 				<input
 					onChange={handleChange}
