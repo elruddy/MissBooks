@@ -2,6 +2,8 @@ import { utilService } from './util.service.js';
 import { storageService } from './async-storage.service.js';
 
 const BOOK_KEY = 'bookDB';
+const CACHE_STORAGE_KEY = 'googleBooksCache';
+const gCache = utilService.loadFromStorage(CACHE_STORAGE_KEY) || {};
 var gFilterBy = { title: '', minPrice: 0 };
 
 export const bookService = {
@@ -13,6 +15,8 @@ export const bookService = {
 	getNextbookId,
 	getFilterBy,
 	setFilterBy,
+	getGoogleBooks,
+	addGoogleBook,
 };
 
 function query() {
@@ -105,6 +109,31 @@ function getNextbookId(bookId) {
 //   return book;
 // }
 
+function getGoogleBooks(bookName) {
+	if (bookName === '') return Promise.resolve();
+	const googleBooks = gCache[bookName];
+	if (googleBooks) {
+		console.log('data from storage...', googleBooks);
+		return Promise.resolve(googleBooks);
+	}
+
+	const url = `https://www.googleapis.com/books/v1/volumes?printType=books&q=${bookName}`;
+
+	return axios.get(url).then((res) => {
+		console.log({ res });
+		const data = res.data.items;
+		console.log('data from network...', data);
+		const books = _formatGoogleBooks(data);
+		gCache[bookName] = books;
+		utilService.saveToStorage(CACHE_STORAGE_KEY, gCache);
+		return books;
+	});
+}
+
+function addGoogleBook(book) {
+	return storageService.post(BOOK_KEY, book, false);
+}
+
 function _createBooks() {
 	const ctgs = ['Love', 'Fiction', 'Poetry', 'Computers', 'Religion'];
 	let books = [];
@@ -141,6 +170,36 @@ function _setNextPrevBookId(book) {
 			: books[books.length - 1];
 		book.nextBookId = nextBook.id;
 		book.prevBookId = prevBook.id;
+		return book;
+	});
+}
+
+function _formatGoogleBooks(googleBooks) {
+	return googleBooks.map((googleBook) => {
+		const { volumeInfo } = googleBook;
+
+		let bookPublishedYear =
+			volumeInfo.publishedDate.length > 4
+				? volumeInfo.publishedDate.slice(0, 4)
+				: volumeInfo.publishedDate;
+
+		const book = {
+			id: googleBook.id,
+			title: volumeInfo.title,
+			description: volumeInfo.description,
+			pageCount: volumeInfo.pageCount,
+			authors: volumeInfo.authors,
+			categories: volumeInfo.categories,
+			publishedDate: +bookPublishedYear,
+			language: volumeInfo.language,
+			listPrice: {
+				amount: utilService.getRandomIntInclusive(80, 500),
+				currencyCode: 'EUR',
+				isOnSale: Math.random() > 0.7,
+			},
+			reviews: [],
+		};
+		if (volumeInfo.imageLinks) book.thumbnail = volumeInfo.imageLinks.thumbnail;
 		return book;
 	});
 }

@@ -1,4 +1,5 @@
 import { bookService } from '../services/book.service.js';
+import { BookAdd } from '../cmps/BookAdd.jsx';
 
 const { useNavigate, useParams } = ReactRouterDOM;
 const { useState, useEffect } = React;
@@ -70,9 +71,13 @@ export function BookEdit() {
 		setBook({ ...book });
 	}
 
+	console.log(book.id);
+
 	return (
 		<section className="book-edit">
-			<h2>Add Book</h2>
+			{book.id === null && <BookAdd />}
+
+			{book.id === null ? <h2>Add your Book</h2> : <h2>Edit Book</h2>}
 			<form onSubmit={onSave}>
 				<label className="bold-txt" htmlFor="title">
 					Title:{' '}

@@ -1,0 +1,21 @@
+.google-search-list {
+	width: 70vw;
+}
+
+.google-search-list li {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-block-end: 5px;
+	padding: 5px;
+
+	border: 1px solid;
+	border-radius: 10px;
+	background-color: rgb(206, 206, 206);
+}
+
+.google-search-list button {
+	width: 40px;
+	height: 20px;
+	padding: 0;
+}
