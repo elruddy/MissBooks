@@ -11,6 +11,10 @@
 	border: 1px solid;
 }
 
+.book-reviews li > * {
+	padding: 5px 10px;
+}
+
 .book-reviews button {
 	position: absolute;
 	top: 3px;

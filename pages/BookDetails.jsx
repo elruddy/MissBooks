@@ -2,6 +2,7 @@ import { bookService } from '../services/book.service.js';
 import { utilService } from '../services/util.service.js';
 import { LongTxt } from '../cmps/LongTxt.jsx';
 import { AddReview } from '../cmps/AddReview.jsx';
+import { ReviewList } from '../cmps/ReviewList.jsx';
 
 const { useState, useEffect } = React;
 const { useParams, useNavigate, Link } = ReactRouterDOM;
@@ -86,20 +87,10 @@ export function BookDetails() {
 
 			<AddReview onReviewSubmit={onReviewSubmit} />
 
-			{hasReviews && (
-				<section>
-					<h2>Book Reviews</h2>
-					<ul className="book-reviews container flex">
-						{book.reviews.map((review) => (
-							<li key={review.id}>
-								<div>{review.fullname}</div>
-								<p>{review.rating}</p>
-								<div>{review.readAt}</div>
-								<button onClick={() => removeReview(review.id)}>X</button>
-							</li>
-						))}
-					</ul>
-				</section>
+			{hasReviews ? (
+				<ReviewList reviews={book.reviews} removeReview={removeReview} />
+			) : (
+				<div className="loader"> No reviews</div>
 			)}
 
 			<section className="page-btns">
