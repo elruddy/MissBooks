@@ -2,17 +2,23 @@ import { BookFilter } from '../cmps/BookFilter.jsx';
 import { BookList } from '../cmps/BookList.jsx';
 import { bookService } from '../services/book.service.js';
 import { showSuccessMsg } from '../services/event-bus.service.js';
+import { utilService } from '../services/util.service.js';
 
 // import { animateCSS } from "../services/util.service.js"
-const { Link } = ReactRouterDOM;
+const { Link, useSearchParams } = ReactRouterDOM;
 
 const { useState, useEffect } = React;
 
 export function BookIndex() {
 	const [books, setBooks] = useState(null);
-	const [filterBy, setFilterBy] = useState(bookService.getFilterBy());
+	const [searchParams, setSearchParams] = useSearchParams();
+	const [filterBy, setFilterBy] = useState(
+		bookService.getFilterFromParams(searchParams)
+	);
 
 	useEffect(() => {
+		setSearchParams(utilService.cleanObject(filterBy));
+		console.log(filterBy);
 		loadBooks();
 	}, [filterBy]);
 

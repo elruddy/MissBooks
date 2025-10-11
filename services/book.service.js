@@ -15,6 +15,7 @@ export const bookService = {
 	getNextbookId,
 	getFilterBy,
 	setFilterBy,
+	getFilterFromParams,
 	getGoogleBooks,
 	addGoogleBook,
 };
@@ -30,11 +31,11 @@ function query() {
 
 		if (gFilterBy.minPrice) {
 			books = books.filter(
-				(book) => book.listPrice.amount <= gFilterBy.minPrice
+				(book) => book.listPrice.amount >= gFilterBy.minPrice
 			);
 		}
 
-		// here is osm bug work only on firt load that it creates 20 books then is two
+		// here is some bug work only on first load that it creates 20 books then is two
 		if (!books || books.length === 0) {
 			books = _createBooks();
 		}
@@ -91,6 +92,14 @@ function setFilterBy(filterBy = {}) {
 	if (filterBy.title !== undefined) gFilterBy.title = filterBy.title;
 	if (filterBy.minPrice !== undefined) gFilterBy.minPrice = filterBy.minPrice;
 	return gFilterBy;
+}
+
+function getFilterFromParams(searchParams = {}) {
+	//const defaultFilter = getDefaultFilter();
+	return {
+		title: searchParams.get('title') || ' ',
+		minPrice: searchParams.get('minPrice') || 0,
+	};
 }
 
 function getNextbookId(bookId) {

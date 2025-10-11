@@ -8,6 +8,7 @@ export const utilService = {
 	getDayName,
 	getMonthName,
 	debounce,
+	cleanObject,
 };
 
 function makeId(length = 6) {
@@ -113,4 +114,15 @@ function debounce(callback, wait) {
 			callback(...args);
 		}, wait);
 	};
+}
+
+function cleanObject(obj) {
+	const newObj = {};
+	for (const key in obj) {
+		const value = obj[key];
+		if (value) {
+			newObj[key] = value;
+		}
+	}
+	return newObj;
 }
