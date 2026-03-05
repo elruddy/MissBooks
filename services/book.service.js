@@ -31,7 +31,7 @@ function query() {
 
 		if (gFilterBy.minPrice) {
 			books = books.filter(
-				(book) => book.listPrice.amount >= gFilterBy.minPrice
+				(book) => book.listPrice.amount >= gFilterBy.minPrice,
 			);
 		}
 
@@ -63,7 +63,7 @@ function save(book) {
 function getEmptybook(
 	title = '',
 	publishedDate = 1990,
-	description = utilService.makeLorem(20)
+	description = utilService.makeLorem(20),
 ) {
 	return {
 		id: null,
@@ -109,14 +109,6 @@ function getNextbookId(bookId) {
 		return books[nextbookIdx].id;
 	});
 }
-
-// function _createbook(title, listPrice = 80) {
-//   const book = getEmptybook(title, listPrice);
-//   book.id = utilService.makeId();
-//   book.title;
-//   book.listPrice;
-//   return book;
-// }
 
 function getGoogleBooks(bookName) {
 	if (bookName === '') return Promise.resolve();
@@ -165,8 +157,8 @@ function _createBooks() {
 			},
 		};
 		books.push(book);
-		storageService.post(BOOK_KEY, book);
 	}
+	utilService.saveToStorage(BOOK_KEY, books);
 	return books;
 }
 

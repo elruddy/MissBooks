@@ -24,7 +24,7 @@ export function AddReview({ onReviewSubmit }) {
 		setReview((prev) => ({ ...prev, rating: value }));
 	}
 
-	const commonProps = {
+	const ratingProps = {
 		value: review.rating,
 		onChange: handleRatingChange,
 		name: 'rating',
@@ -34,11 +34,11 @@ export function AddReview({ onReviewSubmit }) {
 	function renderRatingInput() {
 		switch (inputType) {
 			case 'select':
-				return <RateBySelect {...commonProps} />;
+				return <RateBySelect {...ratingProps} />;
 			case 'stars':
-				return <RateByStars {...commonProps} />;
+				return <RateByStars {...ratingProps} />;
 			default:
-				return <RateByNum {...commonProps} />;
+				return <RateByNum {...ratingProps} />;
 		}
 	}
 

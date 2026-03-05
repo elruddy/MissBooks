@@ -43,7 +43,7 @@ export function BookFilter({ filterBy, onSetFilterBy }) {
 					type="text"
 				/>
 
-				<label htmlFor="minPrice">Min Price</label>
+				<label htmlFor="minPrice">Minimal Price</label>
 				<input
 					onChange={handleChange}
 					value={minPrice || ''}
