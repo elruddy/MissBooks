@@ -15,7 +15,7 @@
 	gap: 40px;
 }
 
-a:hover {
+.app-header a:hover {
 	scale: 1.5;
 	transition: 5ms;
 }
