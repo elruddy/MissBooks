@@ -125,6 +125,7 @@ function getGoogleBooks(bookName) {
 		const data = res.data.items;
 		console.log('data from network...', data);
 		const books = _formatGoogleBooks(data);
+		console.log('formatted books', books);
 		gCache[bookName] = books;
 		utilService.saveToStorage(CACHE_STORAGE_KEY, gCache);
 		return books;
@@ -180,7 +181,7 @@ function _formatGoogleBooks(googleBooks) {
 		const { volumeInfo } = googleBook;
 
 		let bookPublishedYear =
-			volumeInfo.publishedDate.length > 4
+			volumeInfo.publishedDate && volumeInfo.publishedDate.length > 4
 				? volumeInfo.publishedDate.slice(0, 4)
 				: volumeInfo.publishedDate;
 

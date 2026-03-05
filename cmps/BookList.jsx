@@ -7,14 +7,19 @@ export function BookList({ books, onRemoveBook }) {
 			{books.map((book) => (
 				<li key={book.id}>
 					<BookPreview book={book} />
-					<section>
-						<button onClick={(ev) => onRemoveBook(book.id, ev)}>Remove</button>
-						<button>
-							<Link to={`/book/${book.id}`}>Details</Link>
-						</button>
-						<button>
-							<Link to={`/book/edit/${book.id}`}>Edit</Link>
-						</button>
+					<section className="book-actions">
+						<i
+							className="fas fa-trash"
+							onClick={(ev) => onRemoveBook(book.id, ev)}
+						></i>
+
+						<Link to={`/book/${book.id}`}>
+							<i className="fas fa-info-circle"></i>
+						</Link>
+
+						<Link to={`/book/edit/${book.id}`}>
+							<i className="fas fa-edit"></i>
+						</Link>
 					</section>
 				</li>
 			))}

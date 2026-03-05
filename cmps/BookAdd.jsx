@@ -45,9 +45,9 @@ export function BookAdd() {
 	};
 
 	return (
-		<div>
-			<div>
-				<h2>Add Book from Google</h2>
+		<div className="google-book-page">
+			<h2 style={{ alignSelf: 'baseline' }}>Add Book from Google</h2>
+			<div className="book-search-container">
 				<span className="bold-txt">Google Search: </span>
 				<input
 					ref={inputRef}

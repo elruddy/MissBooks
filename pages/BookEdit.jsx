@@ -75,7 +75,7 @@ export function BookEdit() {
 
 	return (
 		<section className="book-edit">
-			{book.id === null && <BookAdd />}
+			{/* {book.id === null && <BookAdd />} */}
 
 			{book.id === null ? <h2>Add your Book</h2> : <h2>Edit Book</h2>}
 			<form onSubmit={onSave}>
